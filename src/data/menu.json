@@ -1,0 +1,31 @@
+{
+  "data": [
+    {
+      "title": "product",
+      "active": false,
+      "icon": "home.svg",
+      "iconf": "product",
+      "path": "/"
+    },
+    {
+      "title": "cart",
+      "active": false,
+      "iconf": "cart",
+      "path": "/cart"
+    },
+    {
+      "title": "history",
+      "active": false,
+      "icon": "file-minus.svg",
+      "iconf": "history",
+      "path": "/history"
+    },
+    {
+      "title": "admin",
+      "active": false,
+      "icon": "hard-drive.svg",
+      "iconf": "admin",
+      "path": "/admin"
+    }
+  ]
+}
