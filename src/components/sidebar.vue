@@ -33,8 +33,8 @@
       
       <!-- Logout -->
     <div class="px-3 my-4">
-      <RouterLink :to="{name: 'login'}">
-        <div class="px-4 py-4 rounded-lg hover:bg-primary hover:text-white">
+      <RouterLink :to="{name: 'Login'}">
+        <div class="px-4 py-4 rounded-lg hover:bg-primary hover:text-white" @click="auth.handleLogout">
           <svg width="30" height="30">
             <use xlink:href="src/assets/svg/icon-sprite.svg#log-out"></use>
           </svg>
@@ -46,9 +46,11 @@
 
 <script setup>
 import { onMounted } from 'vue';
+import { useAuthStore } from '@/stores/auth'
 import { useMenuStore } from '@/stores/menu';
 import { RouterLink } from 'vue-router';
 
+const auth = useAuthStore()
 const menu = useMenuStore()
 
 onMounted(()=>{

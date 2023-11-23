@@ -94,7 +94,7 @@
 
 <script setup>
 import { ref } from 'vue';
-import AddToCart from './addToCart.vue'
+import AddToCart from '@/pages/products/addToCart.vue'
 
 let showAddCartModal = ref(false)
 

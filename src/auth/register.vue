@@ -18,7 +18,7 @@
           </div>
           
 
-          <p class="text-sm text-secondary w-full text-center">Already have account? <RouterLink :to="{ name: 'login' }" class="text-sky-500 hover:underline">Login</RouterLink></p>
+          <p class="text-sm text-secondary w-full text-center">Already have account? <RouterLink :to="{ name: 'Login' }" class="text-sky-500 hover:underline">Login</RouterLink></p>
           <div class="w-full px-4 mt-6 mb-8 flex justify-center">
             <button type="submit" class="bg-primary text-white px-6 py-2 rounded-md shadow-md font-semibold hover:bg-teal-400 transition duration-300">Sign In</button>
           </div>

@@ -2,19 +2,19 @@
   <section id="login">
     <div class="container">
       <div class="flex justify-center px-2 min-h-[100vh] items-center">
-        <form action="" class="bg-slate-100 max-w-sm w-full rounded-lg px-8 ">
+        <form @submit.prevent="login" class="bg-slate-100 max-w-sm w-full rounded-lg px-8 ">
           <h1 class="px-4 my-8 text-center text-2xl font-bold">Login</h1>
           <div class="w-full px-4 my-6">
             <label for="email_auth" class="text-base font-semibold tracking-wider">Email</label>
-            <input type="email" id="email_auth" class="w-full p-3 mt-2 text-base rounded-lg focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary" placeholder="Email">
+            <input type="email" id="email_auth" class="w-full p-3 mt-2 text-base rounded-lg focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary" placeholder="Email" v-model="auth.user.email.value">
           </div>
           <div class="w-full px-4 my-6">
             <label for="password_auth" class="text-base font-semibold tracking-wider">Password</label>
-            <input type="password" id="password_auth" class="w-full p-3 mt-2 text-base rounded-lg focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary" placeholder="***">
+            <input type="password" id="password_auth" class="w-full p-3 mt-2 text-base rounded-lg focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary" placeholder="***" v-model="auth.user.password.value">
           </div>
           
 
-          <p class="text-sm text-secondary w-full text-center">Dont have Accout? <RouterLink :to="{ name: 'register' }" class="text-sky-500 hover:underline">Register</RouterLink></p>
+          <p class="text-sm text-secondary w-full text-center">Dont have Accout? <RouterLink :to="{ name: 'Register' }" class="text-sky-500 hover:underline">Register</RouterLink></p>
           <div class="w-full px-4 mt-6 mb-8 flex justify-center">
             <button type="submit" class="bg-primary text-white px-6 py-2 rounded-md shadow-md font-semibold hover:bg-teal-400 transition duration-300">Sign In</button>
           </div>
@@ -27,8 +27,16 @@
 <style scoped>
 </style>
 
-<script>
+<script setup>
 import { RouterLink } from 'vue-router';
+import { useAuthStore } from '../stores/auth';
+import { onMounted } from 'vue';
+
+const auth = useAuthStore()
+
+const login  = () => {
+  auth.handleLogin()
+}
 
 
 </script>
