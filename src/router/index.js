@@ -73,19 +73,28 @@ const routes = [
         path: '',
         name: 'Admin',
         component: admin,
-        meta: { requiresAuth: true }
+        meta: { 
+          requiresAuth: true,
+          admin: true
+        }
       },
       {
         path: '/add-product',
         name: 'AddProduct',
         component: addProduct,
-        meta: { requiresAuth: true }
+        meta: { 
+          requiresAuth: true,
+          admin: true
+        }
       },
       {
         path: '/edit-product',
         name: 'EditProduct',
         component: editProduct,
-        meta: { requiresAuth: true }
+        meta: { 
+          requiresAuth: true,
+          admin: true
+        }
       },
     ]
   },
@@ -110,7 +119,6 @@ router.beforeEach((to, from, next) => {
 })
 
 router.beforeEach((to, from, next) => {
-  console.log('test Auth')
   if(to.matched.some((record) => record.meta.requiresAuth)){
     if(sessionStorage.getItem('token')){
       next();
@@ -119,6 +127,19 @@ router.beforeEach((to, from, next) => {
     next('/login');
   }
   else {
+    next()
+  }
+})
+
+router.beforeEach((to, from, next) => {
+  if(to.matched.some((record) => record.meta.admin)){
+    if(sessionStorage.getItem('role').toLowerCase() === 'admin'){
+      next();
+      return;
+    }
+    next('/')
+  }
+  else{
     next()
   }
 })

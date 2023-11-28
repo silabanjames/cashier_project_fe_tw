@@ -4,8 +4,7 @@ import router from '../router'
 
 export const useAuthStore = defineStore('auth', {
     state: () =>({
-        user: {
-            name: '',
+        input: {
             email: {
                 value: '',
                 errmsg: ''
@@ -14,14 +13,17 @@ export const useAuthStore = defineStore('auth', {
                 value: '',
                 errmsg: ''
             },
-            role: '',
+        },
+        user: {
+            name: sessionStorage.getItem('name'),
+            email: sessionStorage.getItem('email'),
+            role: sessionStorage.getItem('role'),
         }
     }),
     actions: {
         async handleLogin() {
-            const email = this.user.email.value
-            const password = this.user.password.value
-
+            const email = this.input.email.value
+            const password = this.input.password.value
             await axiosInstance.post('/auth/sign-in', {
                 email,
                 password
@@ -31,30 +33,50 @@ export const useAuthStore = defineStore('auth', {
                 data => {
                     const token = data.access_token
                     sessionStorage.setItem('token', token)
+                    sessionStorage.setItem('name', data.user_information.name)
+                    sessionStorage.setItem('email', data.user_information.email)
+                    sessionStorage.setItem('role', data.user_information.role)
                     axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${token}`
-
-                    this.user.name = data.user_information.name
-                    this.user.email.value = data.user_information.email
-                    this.user.email.errmsg = ''
-                    this.user.password.value = ''
-                    this.user.password.errmsg = ''
-                    this.user.role = data.user_information.role
-                    router.push('/')
+                    this.user.name = sessionStorage.getItem('name')
+                    this.user.email = sessionStorage.getItem('email')
+                    this.user.role = sessionStorage.getItem('role')
+                    this.input.email.errmsg = ''
+                    this.input.password.value = ''
+                    this.input.password.errmsg = ''
+                    router.push({name: 'ProductList'})
                 }
             )
             .catch(err => {
-                console.log(err)
+                alert(err.response.data.message)
+            })
+        },
+        async handleRegister(name, email, password){
+            await axiosInstance.post('/auth/sign-up', {
+                name,
+                email,
+                password
+            })
+            .then(res => res.data)
+            .then(
+                router.push({name: 'Login'})
+            )
+            .catch(err=> {
+                alert(err.response.data.message)
             })
         },
         handleLogout(){
             let confirmation = confirm("Apakah anda yakin ingin keluar dari aplikasi?")
             if(confirmation){
                 sessionStorage.removeItem('token')
-                this.user.name = ''
-                this.user.email.value = ''
-                this.user.role = ''
-                router/push('/login')
+                sessionStorage.removeItem('name')
+                sessionStorage.removeItem('email')
+                sessionStorage.removeItem('role')
+                router.push('/login')
             }
+        },
+        validEmail(email){
+            const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            return re.test(email)
         }
     }
 })

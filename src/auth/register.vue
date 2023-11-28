@@ -2,19 +2,22 @@
   <section id="login">
     <div class="container">
       <div class="flex justify-center px-2 min-h-[100vh] items-center">
-        <form action="" class="bg-slate-100 max-w-md w-full rounded-lg px-8 ">
+        <form action="" class="bg-slate-100 max-w-md w-full rounded-lg px-8 " @submit.prevent="register">
           <h1 class="px-4 my-8 text-center text-2xl font-bold">Register</h1>
           <div class="w-full px-4 my-3">
             <label for="name_regis" class="text-base font-semibold tracking-wider">Name</label>
-            <input type="text" id="name_regis" class="w-full p-3 mt-2 text-base rounded-lg focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary" placeholder="Email">
+            <input type="text" id="name_regis" class="w-full p-3 mt-2 text-base rounded-lg focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary" placeholder="Name" v-model="name">
+            <span class="text-red-500 text-sm">{{ nameErrMsg }}</span>
           </div>
           <div class="w-full px-4 my-3">
             <label for="email_regis" class="text-base font-semibold tracking-wider">Email</label>
-            <input type="email" id="email_regis" class="w-full p-3 mt-2 text-base rounded-lg focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary" placeholder="Password">
+            <input type="email" id="email_regis" class="w-full p-3 mt-2 text-base rounded-lg focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary" placeholder="Email" v-model="email">
+            <span class="text-red-500 text-sm">{{ emailErrMsg }}</span>
           </div>
           <div class="w-full px-4 my-3">
             <label for="password_regis" class="text-base font-semibold tracking-wider">Password</label>
-            <input type="password" id="password_regis" class="w-full p-3 mt-2 text-base rounded-lg focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary" placeholder="***">
+            <input type="password" id="password_regis" class="w-full p-3 mt-2 text-base rounded-lg focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary" placeholder="***" v-model="password">
+            <span class="text-red-500 text-sm">{{ passwordErrMsg }}</span>
           </div>
           
 
@@ -27,3 +30,57 @@
     </div>
   </section>
 </template>
+
+<script setup>
+import { useAuthStore } from '../stores/auth';
+import { ref } from 'vue';
+
+const auth = useAuthStore()
+
+let name = ref('')
+let nameErrMsg = ref('')
+let email = ref('')
+let emailErrMsg = ref('')
+let password = ref('')
+let passwordErrMsg = ref('')
+
+const register = () => {
+  /*
+  * Check Input
+  */
+  // check name input  
+  if(!name.value){
+    nameErrMsg.value = 'empty not allowed'
+  }
+  else{
+    nameErrMsg.value = ''
+  }
+  // check email input  
+  if(!email.value){
+    emailErrMsg.value = 'empty not allowed'
+  }
+  else if(!auth.validEmail(email.value)) {
+    emailErrMsg.value = 'valid email required'
+  }
+  else{
+    emailErrMsg.value = ''
+  }
+  // check password input
+  if(!password.value){
+    passwordErrMsg.value = 'empty not allowed'
+  }
+  else{
+    passwordErrMsg.value = ''
+  }
+
+  /*
+  * Send Request to Background
+  */
+  if(!nameErrMsg.value && !emailErrMsg.value && !passwordErrMsg.value){
+    auth.handleRegister(name.value, email.value, password.value)
+  }
+  else{
+    alert('correct the input')
+  }
+}
+</script>

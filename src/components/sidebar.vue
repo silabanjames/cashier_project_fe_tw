@@ -18,14 +18,16 @@
         
         <div class="flex flex-col">
           <div class="px-3 my-1" v-for="menuItem in menu.data">
-            <RouterLink :to="menuItem.path">
-              <div class="px-4 py-4 rounded-lg hover:bg-primary hover:text-white" @click="menu.setNavActive(menuItem)" :class="{'menu-active': menuItem.active}">
-                <!-- <img :src="`src/assets/icons/${menuItem.icon}`" :alt="menuItem.title"> -->
-                <svg width="30" height="30">
-                  <use :xlink:href="`src/assets/svg/icon-sprite.svg#${menuItem.iconf}`"></use>
-                </svg>
-              </div>
-            </RouterLink>
+            <template v-if="!menuItem.admin || (menuItem.admin && auth.user.role.toLowerCase() === 'admin')">
+              <RouterLink :to="menuItem.path">
+                <div class="px-4 py-4 rounded-lg hover:bg-primary hover:text-white" @click="menu.setNavActive(menuItem)" :class="{'menu-active': menuItem.active}">
+                  <!-- <img :src="`src/assets/icons/${menuItem.icon}`" :alt="menuItem.title"> -->
+                  <svg width="30" height="30">
+                    <use :xlink:href="`src/assets/svg/icon-sprite.svg#${menuItem.iconf}`"></use>
+                  </svg>
+                </div>
+              </RouterLink>
+            </template>
           </div>
         </div>
       </div>

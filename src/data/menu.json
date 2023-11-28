@@ -5,27 +5,31 @@
       "active": false,
       "icon": "home.svg",
       "iconf": "product",
-      "path": "/"
+      "path": "/",
+      "admin": false
     },
     {
       "title": "cart",
       "active": false,
       "iconf": "cart",
-      "path": "/cart"
+      "path": "/cart",
+      "admin": false
     },
     {
       "title": "history",
       "active": false,
       "icon": "file-minus.svg",
       "iconf": "history",
-      "path": "/history"
+      "path": "/history",
+      "admin": false
     },
     {
       "title": "admin",
       "active": false,
       "icon": "hard-drive.svg",
       "iconf": "admin",
-      "path": "/admin"
+      "path": "/admin",
+      "admin": true
     }
   ]
 }

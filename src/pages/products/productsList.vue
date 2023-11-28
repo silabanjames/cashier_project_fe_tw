@@ -5,101 +5,51 @@
     <div class="px-8 ">
         <div class="flex justify-center">
             <div class="max-w-[350px] w-full sm:max-w-full sm:grid sm:grid-cols-2 sm:gap-3 lg:grid-cols-3 xl:grid-cols-4">
-                <div class="bg-white w-full flex flex-col items-center mb-6 rounded-md shadow-md ">
+                <div class="bg-white w-full flex flex-col items-center mb-6 rounded-md shadow-md " v-for="product in products.products">
                     <div class="w-1/2 aspect-square mt-6 flex items-center">
-                        <img src="@/assets/images/product/beng-beng-no-bg.png" alt="Product" class="w-full">
-                    </div>
-                    <h2 class="text-lg font-semibold mt-2">Beng beng</h2>
-                    <h3 class="text-md text-secondary font-light">Rp. 10000,-</h3>
-                    <h3 class="text-sm mb-4">Stok: 5</h3>
-                    <div class="mb-6 w-1/2">
-                        <button class="bg-primary text-white py-1 px-4 w-full rounded-md hover:bg-teal-400" @click="toggleModalAddToCart">Beli</button>
-                    </div>
-                </div>
-                <div class="bg-white w-full flex flex-col items-center mb-6 rounded-md shadow-md ">
-                    <div class="w-1/2 aspect-square mt-6 flex items-center">
-                        <img src="@/assets/images/product/beng-beng-no-bg.png" alt="Product" class="w-full">
-                    </div>
-                    <h2 class="text-lg font-semibold mt-2">Beng beng</h2>
-                    <h3 class="text-md text-secondary font-light">Rp. 10000,-</h3>
-                    <h3 class="text-sm mb-4">Stok: 5</h3>
-                    <div class="mb-6 w-1/2">
-                        <button class="bg-primary text-white py-1 px-4 w-full rounded-md hover:bg-teal-400" @click="toggleModalAddToCart">Beli</button>
-                    </div>
-                </div>
-                <div class="bg-white w-full flex flex-col items-center mb-6 rounded-md shadow-md ">
-                    <div class="w-1/2 aspect-square mt-6 flex items-center">
-                        <img src="@/assets/images/product/beng-beng-no-bg.png" alt="Product" class="w-full">
-                    </div>
-                    <h2 class="text-lg font-semibold mt-2">Beng beng</h2>
-                    <h3 class="text-md text-secondary font-light">Rp. 10000,-</h3>
-                    <h3 class="text-sm mb-4">Stok: 5</h3>
-                    <div class="mb-6 w-1/2">
-                        <button class="bg-primary text-white py-1 px-4 w-full rounded-md hover:bg-teal-400" @click="toggleModalAddToCart">Beli</button>
-                    </div>
-                </div>
-                <div class="bg-white w-full flex flex-col items-center mb-6 rounded-md shadow-md ">
-                    <div class="w-1/2 aspect-square mt-6 flex items-center">
-                        <img src="@/assets/images/product/beng-beng-no-bg.png" alt="Product" class="w-full">
-                    </div>
-                    <h2 class="text-lg font-semibold mt-2">Beng beng</h2>
-                    <h3 class="text-md text-secondary font-light">Rp. 10000,-</h3>
-                    <h3 class="text-sm mb-4">Stok: 5</h3>
-                    <div class="mb-6 w-1/2">
-                        <button class="bg-primary text-white py-1 px-4 w-full rounded-md hover:bg-teal-400" @click="toggleModalAddToCart">Beli</button>
-                    </div>
-                </div>
-                <div class="bg-white w-full flex flex-col items-center mb-6 rounded-md shadow-md ">
-                    <div class="w-1/2 aspect-square mt-6 flex items-center">
-                        <img src="@/assets/images/product/beng-beng-no-bg.png" alt="Product" class="w-full">
-                    </div>
-                    <h2 class="text-lg font-semibold mt-2">Beng beng</h2>
-                    <h3 class="text-md text-secondary font-light">Rp. 10000,-</h3>
-                    <h3 class="text-sm mb-4">Stok: 5</h3>
-                    <div class="mb-6 w-1/2">
-                        <button class="bg-primary text-white py-1 px-4 w-full rounded-md hover:bg-teal-400" @click="toggleModalAddToCart">Beli</button>
-                    </div>
-                </div>
-                <div class="bg-white w-full flex flex-col items-center mb-6 rounded-md shadow-md ">
-                    <div class="w-1/2 aspect-square mt-6 flex items-center">
-                        <img src="@/assets/images/product/beng-beng-no-bg.png" alt="Product" class="w-full">
-                    </div>
-                    <h2 class="text-lg font-semibold mt-2">Beng beng</h2>
-                    <h3 class="text-md text-secondary font-light">Rp. 10000,-</h3>
-                    <h3 class="text-sm mb-4">Stok: 5</h3>
-                    <div class="mb-6 w-1/2">
-                        <button class="bg-primary text-white py-1 px-4 w-full rounded-md hover:bg-teal-400" @click="toggleModalAddToCart">Beli</button>
-                    </div>
-                </div>
+                        <!-- <img src='@/assets/images/product/beng-beng-no-bg.png' alt="Product" class="w-full"> -->
+                        <img :src='`http://${product.image}`' alt="Product" class="w-full" @error="imageLoadError">                    </div>
 
-                <!-- Display v.2 -->
-                <!-- <div class="bg-white w-full flex flex-col items-center mb-6 rounded-md shadow-md ">
-                    <div class="w-1/2 aspect-square mt-6">
-                        <img src="@/assets/images/product/beng-beng.jpeg" alt="Product" class="w-full h-full rounded-full">
+                    <h2 class="text-lg font-semibold mt-2">{{ product.title }}</h2>
+                    <h3 class="text-md text-secondary font-light">Rp. {{ product.price}},-</h3>
+                    <h3 class="text-sm mb-4">Stok: {{ product.stock }}</h3>
+                    <div class="mb-6 w-1/2">
+                        <button class="bg-primary text-white py-1 px-4 w-full rounded-md hover:bg-teal-400" @click="toggleModalAddToCart(product)">Beli</button>
                     </div>
-                    <h2 class="text-lg font-semibold mt-2">Beng beng</h2>
-                    <h3 class="text-lg text-secondary">Rp. 10000,-</h3>
-                    <h3 class="text-sm mb-4">Stok: 5</h3>
-                    <div class="mb-6">
-                        <button class="bg-primary text-white py-1 px-4 rounded-md hover:bg-teal-400" @click="toggleModalAddToCart">Beli</button>
-                    </div>
-                </div> -->
+                </div>
             </div>
         </div>
         <template v-if="showAddCartModal">
-            <AddToCart @close="toggleModalAddToCart"/>
+            <AddToCart @close="toggleModalAddToCart" :item="productInfo" />
         </template>
     </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, onBeforeMount, reactive } from 'vue';
 import AddToCart from '@/pages/products/addToCart.vue'
+import { useProductStore } from '../../stores/product';
 
 let showAddCartModal = ref(false)
+let productInfo = reactive({})
+const products = useProductStore()
 
-const toggleModalAddToCart = () => {
+const toggleModalAddToCart = (productItem) => {
     showAddCartModal.value = !showAddCartModal.value
+    if(showAddCartModal.value){
+        productInfo = productItem
+    }
+    else{
+        productInfo = reactive({})
+    }
 }
+
+const imageLoadError = () => {
+    console.log('Image failed to l')
+}
+
+onBeforeMount(() => {
+    products.getProductList()
+})
 
 </script>

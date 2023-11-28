@@ -6,11 +6,13 @@
           <h1 class="px-4 my-8 text-center text-2xl font-bold">Login</h1>
           <div class="w-full px-4 my-6">
             <label for="email_auth" class="text-base font-semibold tracking-wider">Email</label>
-            <input type="email" id="email_auth" class="w-full p-3 mt-2 text-base rounded-lg focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary" placeholder="Email" v-model="auth.user.email.value">
+            <input type="email" id="email_auth" class="w-full p-3 mt-2 text-base rounded-lg focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary" placeholder="Email" v-model="auth.input.email.value">
+            <span class="text-red-500 text-sm">{{ auth.input.email.errmsg }}</span>
           </div>
           <div class="w-full px-4 my-6">
             <label for="password_auth" class="text-base font-semibold tracking-wider">Password</label>
-            <input type="password" id="password_auth" class="w-full p-3 mt-2 text-base rounded-lg focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary" placeholder="***" v-model="auth.user.password.value">
+            <input type="password" id="password_auth" class="w-full p-3 mt-2 text-base rounded-lg focus:outline-none focus:ring-primary focus:ring-1 focus:border-primary" placeholder="***" v-model="auth.input.password.value">
+            <span class="text-red-500 text-sm">{{ auth.input.password.errmsg }}</span>
           </div>
           
 
@@ -34,9 +36,36 @@ import { onMounted } from 'vue';
 
 const auth = useAuthStore()
 
-const login  = () => {
-  auth.handleLogin()
-}
+const login  = () => {  
+  /*
+  * Check Input
+  */
+  if(!auth.input.password.value || auth.input.password.value.length < 7){
+    auth.input.password.errmsg = 'min length 7'
+  }
+  else {
+    auth.input.password.errmsg = ''
+  }
 
+  if(!auth.input.email.value){
+    auth.input.email.errmsg = 'empty not allowed'
+  }
+  else if (!auth.validEmail(auth.input.email.value)) {
+    auth.input.email.errmsg = 'Valid email required'
+  }
+  else {
+    auth.input.email.errmsg = ''
+  }
+
+  /*
+  * Send Request to Backend
+  */
+  if(!auth.input.email.errmsg && !auth.input.password.errmsg){
+    auth.handleLogin()
+  }
+  else{
+    alert('wrong credentials')
+  }
+}
 
 </script>
