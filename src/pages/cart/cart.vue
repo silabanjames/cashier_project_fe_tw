@@ -72,7 +72,7 @@
 </template>
 
 <script setup>
-import { onBeforeMount} from 'vue';
+import { onBeforeMount } from 'vue';
 import { useCartStore } from '../../stores/cart';
 
 const cart = useCartStore()

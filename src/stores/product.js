@@ -49,5 +49,11 @@ export const useProductStore = defineStore('product', {
         decreaseQuantity(){
             this.quantity--
         }
+    },
+    getters: {
+        totalProduct: (state) => {
+            return state.products.length
+        },
+        
     }
 })

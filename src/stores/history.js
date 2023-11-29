@@ -15,5 +15,14 @@ export const useHistoryStore = defineStore('history', {
                 console.log(this.products)
             })
         }
+    },
+    getters: {
+        totalRevenue: (state) => {
+            let totalRevenue = 0
+            state.products.forEach((obj)=>{
+                totalRevenue += obj.quantity * obj.product.price
+            })
+            return totalRevenue
+        }
     }
 })
