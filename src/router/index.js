@@ -88,9 +88,10 @@ const routes = [
         }
       },
       {
-        path: '/edit-product',
+        path: '/edit-product/:id',
         name: 'EditProduct',
         component: editProduct,
+        props: true,
         meta: { 
           requiresAuth: true,
           admin: true

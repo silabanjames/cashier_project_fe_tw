@@ -49,7 +49,7 @@
                     <td class="text-xs text-left text-secondary pr-2 sm:text-sm md:text-base">Rp. {{ product.price }},-</td>
                     <td class="text-xs text-left text-secondary pr-2 sm:text-sm md:text-base">{{ product.stock }}</td>
                     <td class="text-center px-2">
-                        <RouterLink :to="{name: 'EditProduct'}">
+                        <RouterLink :to="{name: 'EditProduct', params: {id: product.id}}">
                             <button class="hover:text-green-600">
                                 <svg width="24" height="24">
                                     <use xlink:href="src/assets/svg/icon-sprite.svg#edit"></use>
@@ -61,7 +61,7 @@
                                 <use xlink:href="src/assets/svg/icon-sprite.svg#info"></use>
                             </svg>
                         </button>
-                        <button class="hover:text-red-600">
+                        <button class="hover:text-red-600" @click="admin.handleDeleteProduct(product.id)">
                             <svg width="24" height="24">
                                 <use xlink:href="src/assets/svg/icon-sprite.svg#delete"></use>
                             </svg>

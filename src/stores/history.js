@@ -12,7 +12,6 @@ export const useHistoryStore = defineStore('history', {
             .then(res => res.data)
             .then(data => {
                 this.products = data.data
-                console.log(this.products)
             })
         }
     },
