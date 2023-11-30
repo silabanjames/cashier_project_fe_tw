@@ -4,12 +4,12 @@ import router from '../router'
 
 export const useProductStore = defineStore('product', {
     state: () => ({
-        products: '',
+        products: [],
         quantity: 0,
     }),
     actions: {
         async getProductList(){
-            await axiosInstance.get('/product')
+            await axiosInstance.get(`/product`)
             .then(res=>res.data)
             .then(data => {
                 this.products = data.data
@@ -30,6 +30,10 @@ export const useProductStore = defineStore('product', {
             })
         },
         async addToCart(productId, modalToggle){
+            if(this.quantity===0){
+                alert('Isi jumlah Pemesanan')
+                return
+            }
             const quantity = this.quantity
             await axiosInstance.post('/cart', {
                 productId,
@@ -38,6 +42,7 @@ export const useProductStore = defineStore('product', {
             .then(res => res.data)
             .then(data => {
                 modalToggle()
+                router.go(0)
             })
             .catch(err => {
                 alert(err.response.data.message)

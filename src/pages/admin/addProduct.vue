@@ -62,6 +62,10 @@ const uploaded= async function(event){
 }
 
 const submitForm = () => {
+    if(!file.value || !title.value || !price.value || !stock.value){
+        alert('Input tidak boleh kosong')
+        return
+    }
     const formData = new FormData();
     formData.append('file', file.value)
     formData.append('title', title.value)

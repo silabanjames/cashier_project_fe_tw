@@ -4,7 +4,7 @@
             <div class="relative top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 max-w-3xl w-11/12">
                 <div class="bg-slate-100 bg-opacity-100 rounded-lg shadow-md flex flex-col justify-center items-center sm:py-10 md:py-20 pt-5">
                     <div class="max-w-[200px] w-full aspect-square flex items-center px-4 sm:px-0">
-                        <img :src='`http://${props.item.image}`'  alt="" class="w-full">
+                        <img :src='`http://${props.item.image}`'  alt="" class="w-full object-contain h-full">
                     </div>
                     <h2 class="text-xl text-dark font-semibold">{{ props.item.title }}</h2>
                     <h3 class="text-lg text-secondary font-light">Rp. {{ props.item.price }},-</h3>
@@ -39,6 +39,7 @@ const props = defineProps({
 const emits = defineEmits(['close'])
 
 const closeModal = () => {
+    products.quantity = 0
     emits('close')
 }
 

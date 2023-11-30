@@ -4,7 +4,7 @@
     </div>
     <div class="px-8 flex justify-center">
         <template v-if="cart.products.length === 0">
-            <div class="max-w-lg w-full aspect-video relative flex justify-center items-center">
+            <div class="max-w-lg mt-32 w-full relative flex justify-center items-center">
                 <h1 class="text-2xl text-secondary font-medium text-center">Keranjang Kosong</h1>
             </div>
         </template>

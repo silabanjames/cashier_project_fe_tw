@@ -68,6 +68,7 @@ export const useAuthStore = defineStore('auth', {
             let confirmation = confirm("Apakah anda yakin ingin keluar dari aplikasi?")
             if(confirmation){
                 sessionStorage.removeItem('token')
+                sessionStorage.removeItem('id')
                 sessionStorage.removeItem('name')
                 sessionStorage.removeItem('email')
                 sessionStorage.removeItem('role')

@@ -8,7 +8,7 @@ export const useCartStore = defineStore('cart', {
     }),
     actions: {
         async getCart(){
-            await axiosInstance.get('/cart')
+            await axiosInstance.get(`/cart`)
             .then(res => res.data)
             .then(data => {
                 this.products = data.data
@@ -27,6 +27,16 @@ export const useCartStore = defineStore('cart', {
                     }
                 })
                 router.push({name: 'Cart'})
+            })
+            .catch(err => {
+                alert(err.response.data.message)
+            })
+        },
+        async deleteCartWithProductId(id){
+            await axiosInstance.delete(`/cart/product/${id}`)
+            .then(res => res.data)
+            .then(data => {
+                router.go(0)
             })
             .catch(err => {
                 alert(err.response.data.message)
